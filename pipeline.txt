@@ -1,0 +1,19 @@
+pipeline{
+	stages{
+	stage('GetCode'){
+		steps{
+			git branch:'main', url: 'https://github.com/AsTr0-GG/DevOps_TE5_32.git'
+		}
+	   }
+	   stage('Build'){
+		steps{
+			sh 'mvn clean package'
+		}
+	   }
+	   stage('SonarQube analysis'){
+		steps{
+			withSonarQubeEnv('Sonarqube 10.1.0')
+		}
+	   }
+	}
+}
